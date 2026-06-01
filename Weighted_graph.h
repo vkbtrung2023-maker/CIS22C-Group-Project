@@ -18,6 +18,7 @@
 
 #include <iostream>
 #include <limits>
+using namespace std;
 
 // include whatever classes you want
 
