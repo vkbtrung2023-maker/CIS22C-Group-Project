@@ -18,18 +18,40 @@
 
 #include <iostream>
 #include <limits>
+#include <vector>
 using namespace std;
 
 // include whatever classes you want
+
+// Describes path and cost between two nodes
+struct VertexPathInfo {
+	Vertex* fromVertex;
+	Vertex* toVertex;
+	double distanceCost;
+	static const double INF = std::numeric_limits<double>::infinity();
+	VertexPathInfo(Vertex* fromVertex, Vertex* toVertex, double distanceCost) {
+		this->fromVertex = fromVertex;
+		this->toVertex = toVertex;
+		this->distanceCost = (distanceCost > -1 || distanceCost < INF) ? distanceCost : INF;
+		
+	}
+};
+
+struct Vertex {
+	int label;
+	vector<VertexPathInfo>* innerEdges;
+	vector<VertexPathInfo>* outerEdges;
+};
 
 class Weighted_graph {
 	private:
 		// your implementation here
 		//  you can add both private member variables and private member functions
-
+		vector<Vertex> vertcies;
 		static const double INF;
 
 	public:
+		//Maybe int in constructor not needed if we are using vectors?
 		Weighted_graph( int = 50 );
 		~Weighted_graph();
 
