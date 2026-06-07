@@ -24,36 +24,34 @@ using namespace std;
 // include whatever classes you want
 
 // Describes path and cost between two nodes
-struct VertexPathInfo {
-	Vertex* fromVertex;
-	Vertex* toVertex;
-	double distanceCost;
-	static const double INF = std::numeric_limits<double>::infinity();
-	VertexPathInfo(Vertex* fromVertex, Vertex* toVertex, double distanceCost) {
-		this->fromVertex = fromVertex;
-		this->toVertex = toVertex;
-		this->distanceCost = (distanceCost > -1 || distanceCost < INF) ? distanceCost : INF;
-		
+class Edge {
+public:
+	int vertex1;
+	int vertex2;
+	double edgeWeight;
+	static constexpr double INF = std::numeric_limits<double>::infinity();
+	Edge(int m = -1, int n = -1, double edgeWeight = -1) {
+		this->vertex1 = m;
+		this->vertex2 = n;
+		this->edgeWeight = (edgeWeight > -1 && edgeWeight < INF) ? edgeWeight : INF;
 	}
 };
 
-struct Vertex {
-	int label;
-	vector<VertexPathInfo>* innerEdges;
-	vector<VertexPathInfo>* outerEdges;
-};
 
 class Weighted_graph {
 	private:
 		// your implementation here
 		//  you can add both private member variables and private member functions
-		vector<Vertex> vertcies;
-		static const double INF;
+		vector<vector<Edge>> edges;
+		int numVertices;
+		int numEdges;
+		static constexpr double INF = std::numeric_limits<double>::infinity();
+
 
 	public:
 		//Maybe int in constructor not needed if we are using vectors?
-		Weighted_graph( int = 50 );
-		~Weighted_graph();
+		Weighted_graph( int numVertcies = 50 );
+		~Weighted_graph() = default;
 
 		int degree( int ) const;
 		int edge_count() const;
@@ -67,15 +65,12 @@ class Weighted_graph {
 	friend std::ostream &operator<<( std::ostream &, Weighted_graph const & );
 };
 
-const double Weighted_graph::INF = std::numeric_limits<double>::infinity();
 
 // Your implementation here
 
 // You can modify this function however you want:  it will not be tested
 
-std::ostream &operator<<( std::ostream &out, Weighted_graph const &graph ) {
-	return out;
-}
+
 
 // Is an error showing up in CIS22B.h or elsewhere?
 // Did you forget a closing '}' ?

@@ -500,7 +500,7 @@ namespace CIS22B {
  * Return the pointer to the user.
  ****************************************************************************/
 
-void *operator new( size_t size ) throw( std::bad_alloc ) {
+void *operator new( size_t size ){
 	void *ptr = malloc( size );
 	CIS22B::allocation_table.insert( ptr, size, false );
 	return static_cast<void *>( ptr );
@@ -539,7 +539,7 @@ void operator delete( void *ptr ) throw () {
  * Return the pointer to the user.
  ****************************************************************************/
 
-void *operator new[]( size_t size ) throw( std::bad_alloc ) {
+void *operator new[]( size_t size ){
 	char *ptr = static_cast<char *>( malloc( size + 2*CIS22B::PAD ) );
 	CIS22B::allocation_table.insert( static_cast<void *>( ptr + CIS22B::PAD ), size, true );
 	CIS22B::initialize_array_bounds( ptr, size + 2*CIS22B::PAD );
