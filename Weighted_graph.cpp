@@ -26,7 +26,7 @@ int Weighted_graph::edge_count() const {
 }
 
 
-// FIX ME...
+// FIXED
 double Weighted_graph::adjacent(int m, int n) const {
 	if (m < 0 || m >= numVertices || n < 0 || n >= numVertices) {
 		throw std::invalid_argument("Invalid vertex index");
