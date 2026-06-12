@@ -1,5 +1,5 @@
 //************************
-//Author: Jordan Alejandro
+//Authors: Jordan Alejandro, Ishaan Verma
 //************************
 
 #include <iostream>
@@ -51,22 +51,26 @@ void Weighted_graph::insert(int m, int n, double weight) {
 	numEdges++;
 }
 
-
-
-// IMPLEMENT THE Dijkstra's algorithm  HERE
 double Weighted_graph::distance(int m, int n) {
+	// Checks for valid vertex indices
 	if (m < 0 || m >= numVertices || n < 0 || n >= numVertices) {
 		throw std::invalid_argument("Invalid vertex index");
 	}
 
+	// If the vertices are the same, the distance would of course be 0
 	if (m == n) {
 		return 0.0;
 	}
 
+	// dist holds the shortest known distance from m to each vertex
 	vector<double> dist(numVertices, INF);
 	dist.at(m) = 0.0;
+
+	// Just keeps track of which vertices have already been visited
 	vector<bool> visited(numVertices, false);
 	for (int i = 0; i < numVertices; i++) {
+
+		// Picks the unisited vertex with the smallest known distance from m
 		int current = -1;
 		for (int j = 0; j < numVertices; j++) {
 			if (visited.at(j) == false && (current == -1 || dist.at(j) < dist.at(current))) {
@@ -74,12 +78,15 @@ double Weighted_graph::distance(int m, int n) {
 			}
 		}
 
+		// In the case that the smallest distance left is INF, then all remaining vertices are deemed to be unreachable
 		if (dist.at(current) == INF) {
 			break;
 		}
 		
+		// Vertex is finalized
 		visited.at(current) = true;
 
+		// For each unvisited neighbor, if the path through current is shorter than the previously known distance, update the distance (neighbor score)
 		const vector<Edge>& edgesFromCurrent = edges.at(current);
 		for (int i = 0;i < edgesFromCurrent.size(); i++) {
 			int neighbor = edgesFromCurrent.at(i).vertex2;
