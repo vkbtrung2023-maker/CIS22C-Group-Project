@@ -55,8 +55,43 @@ void Weighted_graph::insert(int m, int n, double weight) {
 
 // IMPLEMENT THE Dijkstra's algorithm  HERE
 double Weighted_graph::distance(int m, int n) {
-	//IMPLEMENT HERE
-	return 0.0;
+	if (m < 0 || m >= numVertices || n < 0 || n >= numVertices) {
+		throw std::invalid_argument("Invalid vertex index");
+	}
+
+	if (m == n) {
+		return 0.0;
+	}
+
+	vector<double> dist(numVertices, INF);
+	dist.at(m) = 0.0;
+	vector<bool> visited(numVertices, false);
+	for (int i = 0; i < numVertices; i++) {
+		int current = -1;
+		for (int j = 0; j < numVertices; j++) {
+			if (visited.at(j) == false && (current == -1 || dist.at(j) < dist.at(current))) {
+				current = j;
+			}
+		}
+
+		if (dist.at(current) == INF) {
+			break;
+		}
+		
+		visited.at(current) = true;
+
+		const vector<Edge>& edgesFromCurrent = edges.at(current);
+		for (int i = 0;i < edgesFromCurrent.size(); i++) {
+			int neighbor = edgesFromCurrent.at(i).vertex2;
+			double weight = edgesFromCurrent.at(i).edgeWeight;
+
+			if (visited.at(neighbor) == false && dist.at(current) + weight < dist.at(neighbor)) {
+				dist.at(neighbor) = dist.at(current) + weight;
+			}
+		}
+	}
+
+	return dist.at(n);
 }
 
 std::ostream& operator<<(std::ostream& out, Weighted_graph const& graph) {
