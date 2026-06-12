@@ -32,15 +32,17 @@ double Weighted_graph::adjacent(int m, int n) const {
 		throw std::invalid_argument("Invalid vertex index");
 	}
 
-	if (m == n) { return 0.0; }
+	if (m == n) { 
+		return 0.0; 
+	}
 
-	double distance = INF;
 	const vector<Edge>& edgesFromM = edges.at(m);
 	for (int i = 0; i < edgesFromM.size(); i++) {
 		if (edgesFromM.at(i).vertex1 == n || edgesFromM.at(i).vertex2 == n) {
 			return edgesFromM.at(i).edgeWeight;
 		}
 	}
+	return INF;
 }
 
 void Weighted_graph::insert(int m, int n, double weight) {
