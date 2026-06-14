@@ -1,5 +1,5 @@
 //************************
-//Authors: Jordan Alejandro, Ishaan Verma, Trung Vo
+//Authors: Jordan Alejandro, Ishaan Verma, Trung Vo, Iryna Biziukova
 //************************
 
 #include <iostream>
